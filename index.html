@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"> 
+  <script src="code/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript" src="code/m3.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+</head> 
+  <body>
+
+    <h1>Testisyna</h1>
+    <div id="oscs" class="asdf">
+    <h1>Oscillators</h1>
+
+    <p>Oskillaattorin taajuutta voi vaihtaa valitsemalla ch freq ja sen jälkeen z/x näppäimistöstä.</p>
+      <div id="osc1" class="instr"> <h2>Osc 1</h2>
+        <input type="button" value="play" onclick="playSound(0);" />
+        <input type="button" value="stop" onclick="stopSound(0);" />
+        <input type="radio" name="ind" value="" onclick="setIndex(0);"> ch freq
+        <div id = "controls">        
+          <input type="radio" name="w1" value="sine" onclick="setType('sine',0);"> sine
+          <input type="radio" name="w1" value="saw" onclick="setType('sawtooth',0);"> saw
+          <input type="radio" name="w1" value="square" onclick="setType('square',0);"> square
+          <input type="radio" name="w1" value="triangle" onclick="setType('triangle',0);"> triangle
+          <br>
+          <input type="radio" name="f1" value="" onclick="setFreq(440,0);"> 440Hz
+          <input type="radio" name="f1" value="" onclick="setFreq(230,0);"> 230Hz
+          <input type="radio" name="f1" value="" onclick="setFreq(120,0);"> 120Hz
+          <br>
+          kohde: 
+          <input type="radio" name="dest" value="filter" onclick="changeDestination(0, 'filter');"> filter
+          <input type="radio" name="dest" value="speakers" onclick="changeDestination(0, 'speakers');"> speakers 
+        </div>     
+      </div>
+
+    <div id="osc2" class="instr"> <h2>Osc 2</h2>
+      <input type="button" value="play" onclick="playSound(1);" />
+      <input type="button" value="stop" onclick="stopSound(1);" />
+      <input type="radio" name="ind" value="" onclick="setIndex(1);"> ch freq
+      <div id="controls">        
+        <input type="radio" name="w2" value="sine" onclick="setType('sine',1);"> sine
+        <input type="radio" name="w2" value="saw" onclick="setType('sawtooth',1);"> saw
+        <input type="radio" name="w2" value="square" onclick="setType('square',1);"> square
+        <input type="radio" name="w2" value="triangle" onclick="setType('triangle',1);"> triangle
+        <br>
+
+        <input type="radio" name="f2" value="sine" onclick="setFreq(440, 1);"> 440Hz
+        <input type="radio" name="f2" value="saw" onclick="setFreq(230, 1);"> 230Hz
+        <input type="radio" name="f2" value="sine" onclick="setFreq(120, 1);"> 120Hz
+        <br>
+
+        kohde: 
+        <input type="radio" name="dest" value="filter" onclick="changeDestination(1, 'filter');"> filter
+        <input type="radio" name="dest" value="speakers" onclick="changeDestination(1, 'speakers');"> speakers 
+      </div> 
+    </div>
+
+  </div>
+  
+  <div id=filters>
+    <h1>Filters</h1>
+    <div id = "filter1"  class="instr"> <h2>Filter 1</h2> 
+      <div id = "controls">
+        <input type="radio" name="f1" value="lowpass" onclick="setFilterType('lowpass');"> lowpass
+        <input type="radio" name="f1" value="highpass" onclick="setFilterType('highpass');"> highpass
+        <input type="radio" name="f1" value="bandpass" onclick="setFilterType('bandpass');"> bandpass
+      </div>
+    </div>
+  </div>
+
+
+</body>
+</html>
+
+
