@@ -4,8 +4,9 @@ h2 {font: bold 100% arial}
 div { background-color: #f0f0f0;}
 .instr {border: solid; border-color: #a0a0a0}
 .asdf {background-color: #000000, position: absolute;bottom:1px}
-#oscs {position:relative; height: 300px; width: 530px}
-#osc1 {position: absolute;left:1px; width:250px}
-#osc2 { position:absolute; left:255px; width:250px}
-#filters {position:relative; width: 80%; width:530px}
-#filter1 {width: 500px}
+#oscs {position:relative; height: 300px; width: 570px}
+#osc1 {position: absolute;left:1px; width:270px}
+#osc2 { position:absolute; left:275px; width:270px}
+#filters {position:relative; width:570px}
+#filter1 {width: 540px}
+#gain {width: 200px}

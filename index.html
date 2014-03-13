@@ -17,7 +17,7 @@
         <input type="button" value="play" onclick="playSound(0);" />
         <input type="button" value="stop" onclick="stopSound(0);" />
         <input type="radio" name="ind" value="" onclick="setIndex(0);"> ch freq
-        <input id="volume" type="range" min="0" max="1" step="0.1" value="0.5"/>
+        
         <div id = "controls">        
           <input type="radio" name="w1" value="sine" onclick="setType('sine',0);"> sine
           <input type="radio" name="w1" value="saw" onclick="setType('sawtooth',0);"> saw
@@ -59,6 +59,11 @@
 
   </div>
   
+  <div id = "gain" class="instr">
+    <h2>Gain</h2>
+    <input id="volume" type="range" min="0" max="1" step="0.1" value="0.5"/>  
+  </div>
+
   <div id=filters>
     <h1>Filters</h1>
     <div id = "filter1"  class="instr"> <h2>Filter 1</h2> 
