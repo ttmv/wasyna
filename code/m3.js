@@ -5,9 +5,9 @@
 */
 
 var oscs = [];
-var filter = 0;
-var ind = 0; 
-
+var filter;
+var ind; 
+var gain;
 
 $( document ).ready(function() {
     window.AudioContext = window.AudioContext||window.webkitAudioContext;
@@ -24,12 +24,18 @@ $( document ).ready(function() {
         }
     });
 
+    $("#volume").change(function(e) {
+      console.log(this.value);
+      chGain(this.value);
+    });
+
 });
 
 createComponents = function(context) {
     filter = context.createBiquadFilter();
     filter.type = "highpass";
     filter.connect(context.destination);
+    gain = new Gain(context, context.destination);
     osc1 = new Osc(context, context.destination);
     oscs.push(osc1);
     osc2 = new Osc(context, filter);
@@ -54,6 +60,10 @@ setFreq = function(freq, index) {
     oscs[index].setFreq(freq);
 }
 
+chGain = function(value) {
+  gain.gainNode.gain.value = value;
+  console.log("gain value: "+gain.gainNode.gain.value);
+}
 
 setIndex = function(i) {
     ind = i;
@@ -90,6 +100,13 @@ Osc = function(context, dest) {
   this.oscnode.frequency.value = 120;
 } 
 
+Gain = function(context, dest) {
+  this.destination = dest;
+  this.context = context;
+  this.gainNode = context.createGain();
+  this.gainNode.gain.value = 0.5;
+}
+
 Osc.prototype.changeType = function(type) {
   this.oscnode.type = type;
 }
@@ -98,9 +115,12 @@ Osc.prototype.changeDest = function(newDest) {
   if(newDest==="filter") {
     this.destination = filter;
     console.log("dest: filter");
-  } else {
+  } else if(newDest==="gain") {
+    this.destination = gain.gainNode;
+    console.log("dest: gain");
+  } else {
     this.destination = this.context.destination;
-    console.log("clear");
+    console.log("dest: speakers");
   }
 }
 
@@ -109,14 +129,20 @@ Osc.prototype.setFreq = function(freq) {
 }
 
 Osc.prototype.play = function() {
-  console.log(this.destination);
-  this.oscnode.connect(this.destination);  
+  console.log("play to dest: "+ this.destination);
+  console.log("gain value: "+gain.gainNode.gain.value);
+  this.oscnode.connect(this.destination);
+  if(this.destination===gain.gainNode) {
+    gain.gainNode.connect(gain.destination);
+    console.log("gain connected to "+gain.destination);
+  } else { console.log(gain.gainNode);} 
   this.oscnode.start(0);
 
 }
 
 Osc.prototype.pause = function() {
   this.oscnode.disconnect();
+  gain.gainNode.disconnect();
 }
 
 setFilterType = function(type) {
