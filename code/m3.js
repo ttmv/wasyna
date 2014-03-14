@@ -115,10 +115,12 @@ Osc.prototype.changeDest = function(newDest) {
   if(newDest==="filter") {
     this.destination = filter;
     console.log("dest: filter");
-  } else if(newDest==="gain") {
-    this.destination = gain.gainNode;
-    console.log("dest: gain");
-  } else {
+  } 
+  else if(newDest==="gain") {
+      this.destination = gain.gainNode;
+      console.log("dest: gain");
+  } 
+  else {
     this.destination = this.context.destination;
     console.log("dest: speakers");
   }
@@ -131,11 +133,14 @@ Osc.prototype.setFreq = function(freq) {
 Osc.prototype.play = function() {
   console.log("play to dest: "+ this.destination);
   console.log("gain value: "+gain.gainNode.gain.value);
+  
   this.oscnode.connect(this.destination);
+
   if(this.destination===gain.gainNode) {
     gain.gainNode.connect(gain.destination);
     console.log("gain connected to "+gain.destination);
   } else { console.log(gain.gainNode);} 
+
   this.oscnode.start(0);
 
 }
