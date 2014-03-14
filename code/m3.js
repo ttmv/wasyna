@@ -8,7 +8,6 @@ var oscs = [];
 var filter = 0;
 var ind = 0; 
 
-
 $( document ).ready(function() {
     window.AudioContext = window.AudioContext||window.webkitAudioContext;
     context = new AudioContext();
@@ -24,12 +23,23 @@ $( document ).ready(function() {
         }
     });
 
+    $("#osc1_gain").change(function(e) {
+      o = oscs[0];
+      o.changeGain(this.value);
+    });
+
+    $("#osc2_gain").change(function(e) {
+      o = oscs[1];
+      o.changeGain(this.value);
+    });
+
 });
 
 createComponents = function(context) {
     filter = context.createBiquadFilter();
     filter.type = "highpass";
     filter.connect(context.destination);
+
     osc1 = new Osc(context, context.destination);
     oscs.push(osc1);
     osc2 = new Osc(context, filter);
@@ -53,7 +63,6 @@ setFreq = function(freq, index) {
     console.log(index);
     oscs[index].setFreq(freq);
 }
-
 
 setIndex = function(i) {
     ind = i;
@@ -83,6 +92,8 @@ decFreq = function() {
 
 
 Osc = function(context, dest) {
+  this.oscGain = new Gain(context, dest);
+  this.gainNode = this.oscGain.gainNode;
   this.destination = dest;
   this.context = context;
   this.oscnode = context.createOscillator();
@@ -90,17 +101,26 @@ Osc = function(context, dest) {
   this.oscnode.frequency.value = 120;
 } 
 
+Gain = function(context, dest) {
+  this.destination = dest;
+  this.context = context;
+  this.gainNode = context.createGain();
+  this.gainNode.gain.value = 0.5;
+}
+
 Osc.prototype.changeType = function(type) {
   this.oscnode.type = type;
 }
+
 
 Osc.prototype.changeDest = function(newDest) {
   if(newDest==="filter") {
     this.destination = filter;
     console.log("dest: filter");
-  } else {
+  } 
+  else {
     this.destination = this.context.destination;
-    console.log("clear");
+    console.log("dest: speakers");
   }
 }
 
@@ -108,14 +128,23 @@ Osc.prototype.setFreq = function(freq) {
   this.oscnode.frequency.value = freq;
 }
 
+Osc.prototype.changeGain = function(value) {
+  console.log(value);
+  this.gainNode.gain.value = value;
+}
+
 Osc.prototype.play = function() {
-  console.log(this.destination);
-  this.oscnode.connect(this.destination);  
+  console.log("play to dest: "+ this.destination);
+  
+  this.oscnode.connect(this.gainNode);
+  this.gainNode.connect(this.destination);
+
   this.oscnode.start(0);
 
 }
 
 Osc.prototype.pause = function() {
+  this.gainNode.disconnect();
   this.oscnode.disconnect();
 }
 
