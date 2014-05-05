@@ -10,7 +10,7 @@ var ind = 0;
 
 $( document ).ready(function() {
     window.AudioContext = window.AudioContext||window.webkitAudioContext;
-    context = new AudioContext();
+    var context = new AudioContext();
 
     createComponents(context);
 
@@ -24,63 +24,63 @@ $( document ).ready(function() {
     });
 
     $("#osc1_gain").change(function(e) {
-      o = oscs[0];
+      var o = oscs[0];
       o.changeGain(this.value);
     });
 
     $("#osc2_gain").change(function(e) {
-      o = oscs[1];
+      var o = oscs[1];
       o.changeGain(this.value);
     });
 
 });
 
-createComponents = function(context) {
+var createComponents = function(context) {
     filter = context.createBiquadFilter();
     filter.type = "highpass";
     filter.connect(context.destination);
 
-    osc1 = new Osc(context, context.destination);
+    var osc1 = new Osc(context, context.destination);
     oscs.push(osc1);
-    osc2 = new Osc(context, filter);
+    var osc2 = new Osc(context, filter);
     oscs.push(osc2);
 }
 
 
-playSound = function(index) {
+var playSound = function(index) {
     oscs[index].play();
 }
 
-stopSound = function(index) {
+var stopSound = function(index) {
     oscs[index].pause();
 }
 
-setType = function(type, index) {
+var setType = function(type, index) {
     oscs[index].changeType(type);
 }
 
-setFreq = function(freq, index) {
+var setFreq = function(freq, index) {
     console.log(index);
     oscs[index].setFreq(freq);
 }
 
-setIndex = function(i) {
+var setIndex = function(i) {
     ind = i;
 }
 
-changeDestination = function(index, newDest) {
+var changeDestination = function(index, newDest) {
   console.log("dest: "+newDest);
   oscs[index].changeDest(newDest);
 }
 
 
-incFreq = function() {
+var incFreq = function() {
   var o = oscs[ind];
   o.setFreq(o.oscnode.frequency.value +5);
   console.log(o.oscnode.frequency.value+" osc "+(ind+1));
 }
 
-decFreq = function() {
+var decFreq = function() {
   var o = oscs[ind];
   o.setFreq(o.oscnode.frequency.value -5);
   if(o.oscnode.frequency.value < 0) {
@@ -91,7 +91,7 @@ decFreq = function() {
 }
 
 
-Osc = function(context, dest) {
+var Osc = function(context, dest) {
   this.oscGain = new Gain(context, dest);
   this.gainNode = this.oscGain.gainNode;
   this.destination = dest;
@@ -101,7 +101,7 @@ Osc = function(context, dest) {
   this.oscnode.frequency.value = 120;
 } 
 
-Gain = function(context, dest) {
+var Gain = function(context, dest) {
   this.destination = dest;
   this.context = context;
   this.gainNode = context.createGain();
@@ -140,7 +140,6 @@ Osc.prototype.play = function() {
   this.gainNode.connect(this.destination);
 
   this.oscnode.start(0);
-
 }
 
 Osc.prototype.pause = function() {
@@ -148,7 +147,7 @@ Osc.prototype.pause = function() {
   this.oscnode.disconnect();
 }
 
-setFilterType = function(type) {
+var setFilterType = function(type) {
     filter.type = type;    
 }
 
