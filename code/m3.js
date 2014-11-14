@@ -7,6 +7,7 @@
 var oscs = [];
 var filter = 0;
 var ind = 0; 
+var started = false;
 
 $( document ).ready(function() {
     window.AudioContext = window.AudioContext||window.webkitAudioContext;
@@ -36,14 +37,14 @@ $( document ).ready(function() {
 });
 
 var createComponents = function(context) {
-    filter = context.createBiquadFilter();
-    filter.type = "highpass";
-    filter.connect(context.destination);
+  filter = context.createBiquadFilter();
+  filter.type = "highpass";
+  filter.connect(context.destination);
 
-    var osc1 = new Osc(context, context.destination);
-    oscs.push(osc1);
-    var osc2 = new Osc(context, filter);
-    oscs.push(osc2);
+  var osc1 = new Osc(context, context.destination);
+  oscs.push(osc1);
+  var osc2 = new Osc(context, filter);
+  oscs.push(osc2);    
 }
 
 
@@ -139,7 +140,10 @@ Osc.prototype.play = function() {
   this.oscnode.connect(this.gainNode);
   this.gainNode.connect(this.destination);
 
-  this.oscnode.start(0);
+  if(!started) {
+    this.oscnode.start(0);
+    started = true;
+  }
 }
 
 Osc.prototype.pause = function() {
