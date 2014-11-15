@@ -9,29 +9,29 @@ var filter = 0;
 var ind = 0; 
 
 $( document ).ready(function() {
-    window.AudioContext = window.AudioContext||window.webkitAudioContext;
-    var context = new AudioContext();
+  window.AudioContext = window.AudioContext||window.webkitAudioContext;
+  var context = new AudioContext();
 
-    createComponents(context);
+  createComponents(context);
 
-    $(document).keydown(function(e) {
-        if(e.keyCode === 90) {
-            decFreq();
-        }
-        if(e.keyCode === 88) {
-            incFreq();
-        }
-    });
+  $(document).keydown(function(e) {
+    if(e.keyCode === 90) {
+      decFreq();
+    }
 
-    $("#osc1_gain").change(function(e) {
-      var o = oscs[0];
-      o.changeGain(this.value);
-    });
+    if(e.keyCode === 88) {
+      incFreq();
+    }
 
-    $("#osc2_gain").change(function(e) {
-      var o = oscs[1];
-      o.changeGain(this.value);
-    });
+  });
+
+  $("#osc1_gain").change(function(e) {
+    oscs[0].gainNode.gain.value = this.value;
+  });
+
+  $("#osc2_gain").change(function(e) {
+    oscs[1].gainNode.gain.value = this.value;
+  });
 
 });
 
@@ -48,11 +48,11 @@ var createComponents = function(context) {
 
 
 var playSound = function(index) {
-    oscs[index].play();
+  oscs[index].play();
 }
 
 var stopSound = function(index) {
-    oscs[index].pause();
+  oscs[index].pause();
 }
 
 var changeType = function(type, index) {
@@ -65,7 +65,7 @@ var setFreq = function(freq, index) {
 }
 
 var setIndex = function(i) {
-    ind = i;
+  ind = i;
 }
 
 var changeDestination = function(index, newDest) {
@@ -93,8 +93,10 @@ var decFreq = function() {
 }
 
 var filterType = function(type) {
-    filter.type = type;    
+  filter.type = type;    
 }
+
+
 
 var Osc = function(context, dest) {
   this.oscGain = new Gain(context, dest);
@@ -124,13 +126,7 @@ Osc.prototype.changeDest = function(newDest) {
     this.destination = this.context.destination;
     console.log("dest: speakers");
   }
-}
-
-Osc.prototype.changeGain = function(value) {
-  console.log(value);
-  this.gainNode.gain.value = value;
-}
-
+};
 
 Osc.prototype.play = function() {
   console.log("play to dest: "+ this.destination);
@@ -142,11 +138,11 @@ Osc.prototype.play = function() {
     this.oscnode.start(0);
     this.started = true;
   }
-}
+};
 
 Osc.prototype.pause = function() {
   this.gainNode.disconnect();
   this.oscnode.disconnect();
-}
+};
 
 
