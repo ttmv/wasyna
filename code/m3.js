@@ -50,9 +50,9 @@ var incFreq = function() {
   var o = oscs[ind];
 
   if(ind===2) {
-    o.oscnode.frequency.value += 0.5
+    o.oscnode.frequency.value += 0.5;
   } else {
-    o.oscnode.frequency.value += 5
+    o.oscnode.frequency.value += 5;
   }
 
   if(ind===2 && o.oscnode.frequency.value > 60) {
@@ -65,9 +65,9 @@ var incFreq = function() {
 var decFreq = function() {
   var o = oscs[ind];
   if(ind===2) {
-    o.oscnode.frequency.value -= 0.5
+    o.oscnode.frequency.value -= 0.5;
   } else {
-    o.oscnode.frequency.value -= 5
+    o.oscnode.frequency.value -= 5;
   }
 
   if(o.oscnode.frequency.value < 0) {
@@ -110,6 +110,16 @@ $( document ).ready(function() {
 
 });
 
+
+var populateDests = function() {
+  destinations["osc1_freq"] = oscs[0].oscnode.frequency;
+  destinations["osc1_gain"] = oscs[0].oscGain.gainNode.gain;
+  destinations["osc2_freq"] = oscs[1].oscnode.frequency;
+  destinations["osc2_gain"] = oscs[1].oscGain.gainNode.gain;
+  destinations["filter"] = filter;
+};
+
+
 var createComponents = function(context) {
   filter = context.createBiquadFilter();
   filter.type = "highpass";
@@ -121,19 +131,12 @@ var createComponents = function(context) {
   oscs.push(osc2); 
 
   lfo = new Osc(context, osc1.oscnode.frequency);
-  lfo.oscnode.frequency = 5; 
+  lfo.oscnode.frequency.value = 5; 
   lfo.oscGain.gainNode.gain.value = 20;
   oscs.push(lfo);
 };
 
 
-var populateDests = function() {
-  destinations["osc1_freq"] = oscs[0].oscnode.frequency;
-  destinations["osc1_gain"] = oscs[0].oscGain.gainNode.gain;
-  destinations["osc2_freq"] = oscs[1].oscnode.frequency;
-  destinations["osc2_gain"] = oscs[1].oscGain.gainNode.gain;
-  destinations["filter"] = filter;
-}
 
 
 
