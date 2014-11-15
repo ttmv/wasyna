@@ -21,10 +21,10 @@
         <input id="osc1_gain" type="range" min="0" max="1" step="0.1" value="0.5"/> 
         
         <div id = "controls">        
-          <input type="radio" name="w1" value="sine" onclick="setType('sine',0);"> sine
-          <input type="radio" name="w1" value="saw" onclick="setType('sawtooth',0);"> saw
-          <input type="radio" name="w1" value="square" onclick="setType('square',0);"> square
-          <input type="radio" name="w1" value="triangle" onclick="setType('triangle',0);"> triangle
+          <input type="radio" name="w1" value="sine" onclick="changeType('sine',0);"> sine
+          <input type="radio" name="w1" value="saw" onclick="changeType('sawtooth',0);"> saw
+          <input type="radio" name="w1" value="square" onclick="changeType('square',0);"> square
+          <input type="radio" name="w1" value="triangle" onclick="changeType('triangle',0);"> triangle
           <br>
           <input type="radio" name="f1" value="" onclick="setFreq(440,0);"> 440Hz
           <input type="radio" name="f1" value="" onclick="setFreq(230,0);"> 230Hz
@@ -43,10 +43,10 @@
 
       <input id="osc2_gain" type="range" min="0" max="1" step="0.1" value="0.5"/> 
       <div id="controls">        
-        <input type="radio" name="w2" value="sine" onclick="setType('sine',1);"> sine
-        <input type="radio" name="w2" value="saw" onclick="setType('sawtooth',1);"> saw
-        <input type="radio" name="w2" value="square" onclick="setType('square',1);"> square
-        <input type="radio" name="w2" value="triangle" onclick="setType('triangle',1);"> triangle
+        <input type="radio" name="w2" value="sine" onclick="changeType('sine',1);"> sine
+        <input type="radio" name="w2" value="saw" onclick="changeType('sawtooth',1);"> saw
+        <input type="radio" name="w2" value="square" onclick="changeType('square',1);"> square
+        <input type="radio" name="w2" value="triangle" onclick="changeType('triangle',1);"> triangle
         <br>
 
         <input type="radio" name="f2" value="sine" onclick="setFreq(440, 1);"> 440Hz
@@ -66,9 +66,9 @@
     <h1>Filters</h1>
     <div id = "filter1"  class="instr"> <h2>Filter 1</h2> 
       <div id = "controls">
-        <input type="radio" name="f1" value="lowpass" onclick="setFilterType('lowpass');"> lowpass
-        <input type="radio" name="f1" value="highpass" onclick="setFilterType('highpass');"> highpass
-        <input type="radio" name="f1" value="bandpass" onclick="setFilterType('bandpass');"> bandpass
+        <input type="radio" name="f1" value="lowpass" onclick="filterType('lowpass');"> lowpass
+        <input type="radio" name="f1" value="highpass" onclick="filterType('highpass');"> highpass
+        <input type="radio" name="f1" value="bandpass" onclick="filterType('bandpass');"> bandpass
       </div>
     </div>
   </div>

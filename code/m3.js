@@ -43,7 +43,7 @@ var createComponents = function(context) {
   var osc1 = new Osc(context, context.destination);
   oscs.push(osc1);
   var osc2 = new Osc(context, filter);
-  oscs.push(osc2);    
+  oscs.push(osc2);   
 }
 
 
@@ -55,13 +55,13 @@ var stopSound = function(index) {
     oscs[index].pause();
 }
 
-var setType = function(type, index) {
-    oscs[index].changeType(type);
+var changeType = function(type, index) {
+  oscs[index].oscnode.type = type;
 }
 
 var setFreq = function(freq, index) {
-    console.log(index);
-    oscs[index].setFreq(freq);
+  console.log(index);
+  oscs[index].oscnode.frequency.value = freq;
 }
 
 var setIndex = function(i) {
@@ -76,13 +76,15 @@ var changeDestination = function(index, newDest) {
 
 var incFreq = function() {
   var o = oscs[ind];
-  o.setFreq(o.oscnode.frequency.value +5);
+  o.oscnode.frequency.value +=5
+
   console.log(o.oscnode.frequency.value+" osc "+(ind+1));
 }
 
 var decFreq = function() {
   var o = oscs[ind];
-  o.setFreq(o.oscnode.frequency.value -5);
+  o.oscnode.frequency.value -= 5
+
   if(o.oscnode.frequency.value < 0) {
     o.oscnode.frequency.value = 0; 
   }
@@ -90,6 +92,9 @@ var decFreq = function() {
   console.log(o.oscnode.frequency.value+" osc "+(ind+1));
 }
 
+var filterType = function(type) {
+    filter.type = type;    
+}
 
 var Osc = function(context, dest) {
   this.oscGain = new Gain(context, dest);
@@ -109,10 +114,6 @@ var Gain = function(context, dest) {
   this.gainNode.gain.value = 0.5;
 }
 
-Osc.prototype.changeType = function(type) {
-  this.oscnode.type = type;
-}
-
 
 Osc.prototype.changeDest = function(newDest) {
   if(newDest==="filter") {
@@ -125,14 +126,11 @@ Osc.prototype.changeDest = function(newDest) {
   }
 }
 
-Osc.prototype.setFreq = function(freq) {
-  this.oscnode.frequency.value = freq;
-}
-
 Osc.prototype.changeGain = function(value) {
   console.log(value);
   this.gainNode.gain.value = value;
 }
+
 
 Osc.prototype.play = function() {
   console.log("play to dest: "+ this.destination);
@@ -151,7 +149,4 @@ Osc.prototype.pause = function() {
   this.oscnode.disconnect();
 }
 
-var setFilterType = function(type) {
-    filter.type = type;    
-}
 
