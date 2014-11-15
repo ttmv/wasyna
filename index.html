@@ -68,11 +68,24 @@
       <div id = "controls">
         <input type="radio" name="f1" value="lowpass" onclick="filterType('lowpass');"> lowpass
         <input type="radio" name="f1" value="highpass" onclick="filterType('highpass');"> highpass
-        <input type="radio" name="f1" value="bandpass" onclick="filterType('bandpass');"> bandpass
+        <input type="radio" name="f1" value="bandpass" onclick="filterType('bandpass');"> bandpass        
       </div>
     </div>
   </div>
 
+  <div id=lfo>
+    <h1>LFO</h1>
+    <div id="controls">
+      <input type="button" value="LFO on" onclick="startLfo();" /> 
+      <input type="button" value="LFO off" onclick="stopLfo();" />
+      <input type="radio" name="ind" value="" onclick="setIndex(2);"> ch freq 
+      <br>
+      <h3>destination:</h3>
+      <input type="radio" name="lfo" value="osc1 freq" onclick="changeDestination(2, 'freq');"> osc1 freq
+      <input type="radio" name="lfo" value="osq1 gain" onclick="changeDestination(2, 'gain');"> osc1 gain
+              
+    </div>  
+  </div>
 
 </body>
 </html>
