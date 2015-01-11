@@ -69,7 +69,9 @@
       <div id = "controls">
         <input type="radio" name="f1" value="lowpass" onclick="filterType('lowpass');"> lowpass
         <input type="radio" name="f1" value="highpass" onclick="filterType('highpass');"> highpass
-        <input type="radio" name="f1" value="bandpass" onclick="filterType('bandpass');"> bandpass        
+        <input type="radio" name="f1" value="bandpass" onclick="filterType('bandpass');"> bandpass <br> 
+        cutoff <input id="filter_freq" type="range" min="10" max="4000" step="10" value="350"/> <br> 
+        
       </div>
     </div>
   </div>
@@ -77,8 +79,8 @@
   <div id=lfo>
     <h1>LFO</h1>
     <div id="controls">
-      <input type="button" value="LFO on" onclick="startLfo();" /> 
-      <input type="button" value="LFO off" onclick="stopLfo();" />
+      <input type="button" value="LFO on" onclick="startLFO();" /> 
+      <input type="button" value="LFO off" onclick="stopLFO();" />
       <input type="radio" name="ind" value="" onclick="setIndex(2);"> ch freq 
       <br>
       <h3>destination:</h3>

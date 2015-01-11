@@ -11,11 +11,12 @@ var ind = 0;
 var lfo = 0;
 
 
-var startLfo = function() {
+//html:sta kutsuttavat
+var startLFO = function() {
   lfo.play();
 }
 
-var stopLfo = function() {
+var stopLFO = function() {
   lfo.pause();
 }
 
@@ -81,6 +82,7 @@ var filterType = function(type) {
   filter.type = type;    
 };
 
+//-------------------
 
 $( document ).ready(function() {
   window.AudioContext = window.AudioContext||window.webkitAudioContext;
@@ -108,6 +110,11 @@ $( document ).ready(function() {
     oscs[1].gainNode.gain.value = this.value;
   });
 
+  $("#filter_freq").change(function(e) {
+    filter.frequency.value = this.value;
+    console.log(filter.frequency.value);
+  });
+
 });
 
 
@@ -124,6 +131,8 @@ var createComponents = function(context) {
   filter = context.createBiquadFilter();
   filter.type = "highpass";
   filter.connect(context.destination);
+  console.log(filter.frequency.value);
+  console.log(filter.frequency);
 
   var osc1 = new Osc(context, context.destination);
   oscs.push(osc1);
@@ -135,8 +144,5 @@ var createComponents = function(context) {
   lfo.oscGain.gainNode.gain.value = 20;
   oscs.push(lfo);
 };
-
-
-
 
 
