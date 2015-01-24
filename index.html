@@ -76,9 +76,10 @@
     </div>
   </div>
 
-  <div id=lfo>
+  <div id="oscs" class="asdf">
     <h1>LFO</h1>
-    <div id="controls">
+    <div id="osc1" class="instr">
+      <h2>LFO 1</h2>
       <input type="button" value="LFO on" onclick="startLFO();" /> 
       <input type="button" value="LFO off" onclick="stopLFO();" />
       <input type="radio" name="ind" value="" onclick="setIndex(2);"> ch freq 
@@ -87,7 +88,19 @@
       <input type="radio" name="lfo" value="osc1 freq" onclick="changeDestination(2, 'osc1_freq');"> osc1 freq
       <input type="radio" name="lfo" value="osq1 gain" onclick="changeDestination(2, 'osc1_gain');"> osc1 gain
               
+    </div>
+
+    <div id="osc2" class="instr">
+      <h2>LFO 2</h2>
+      <input type="button" value="LFO on" onclick="playSound(3);" /> 
+      <input type="button" value="LFO off" onclick="stopSound(3);" />
+      <input type="radio" name="ind" value="" onclick="setIndex(3);"> ch freq 
+      <br>
+      <h3>destination:</h3>
+      <input type="radio" name="lfo2" value="osc2 freq" onclick="changeDestination(3, 'osc2_freq');"> osc2 freq
+      <input type="radio" name="lfo2" value="osq2 gain" onclick="changeDestination(3, 'osc2_gain');"> osc2 gain      
     </div>  
+  
   </div>
 
 </body>

@@ -20,6 +20,14 @@ var stopLFO = function() {
   lfo.pause();
 }
 
+/*var startLFO2 = function() {
+  oscs[3].play();
+}
+
+var stopLFO2 = function() {
+  oscs[3].pause();
+}*/
+
 var playSound = function(index) {
   oscs[index].play();
 };
@@ -143,6 +151,12 @@ var createComponents = function(context) {
   lfo.oscnode.frequency.value = 5; 
   lfo.oscGain.gainNode.gain.value = 20;
   oscs.push(lfo);
+
+  lfo2 = new Osc(context, osc2.oscnode.frequency);
+  lfo2.oscnode.frequency.value = 5; 
+  lfo2.oscGain.gainNode.gain.value = 20;
+  oscs.push(lfo2);
+
 };
 
 
