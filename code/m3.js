@@ -20,14 +20,6 @@ var stopLFO = function() {
   lfo.pause();
 }
 
-/*var startLFO2 = function() {
-  oscs[3].play();
-}
-
-var stopLFO2 = function() {
-  oscs[3].pause();
-}*/
-
 var playSound = function(index) {
   oscs[index].play();
 };
@@ -132,6 +124,7 @@ var populateDests = function() {
   destinations["osc2_freq"] = oscs[1].oscnode.frequency;
   destinations["osc2_gain"] = oscs[1].oscGain.gainNode.gain;
   destinations["filter"] = filter;
+  destinations["filter_q"] = filter.Q;
 };
 
 
@@ -156,7 +149,6 @@ var createComponents = function(context) {
   lfo2.oscnode.frequency.value = 5; 
   lfo2.oscGain.gainNode.gain.value = 20;
   oscs.push(lfo2);
-
 };
 
 
