@@ -8,8 +8,7 @@ var oscs = [];
 var destinations = {};
 var filter = 0;
 var ind = 0; 
-var lfo = 0;
-
+var lfo = {};
 
 //html:sta kutsuttavat
 var startLFO = function() {
@@ -129,9 +128,8 @@ var populateDests = function() {
 
 
 var createComponents = function(context) {
-  filter = context.createBiquadFilter();
-  filter.type = "highpass";
-  filter.connect(context.destination);
+  var f = new Filter(context, context.destination);
+  filter = f.filternode;
   console.log(filter.frequency.value);
   console.log(filter.frequency);
 
@@ -148,7 +146,7 @@ var createComponents = function(context) {
   lfo2 = new Osc(context, osc2.oscnode.frequency);
   lfo2.oscnode.frequency.value = 5; 
   lfo2.oscGain.gainNode.gain.value = 20;
-  oscs.push(lfo2);
+  oscs.push(lfo2);  
 };
 
 
